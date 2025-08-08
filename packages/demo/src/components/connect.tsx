@@ -101,6 +101,33 @@ function ConnectCore(): JSX.Element | null {
         );
     }, []);
 
+    // Support overriding WebSocket server via ?ws= query parameter for current page load only
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+        const params = new URLSearchParams(window.location.search);
+        const wsParam = params.get("ws");
+        if (!wsParam) {
+            return;
+        }
+        try {
+            const decoded = decodeURIComponent(wsParam);
+            const url = new URL(decoded);
+            if (url.protocol !== "ws:" && url.protocol !== "wss:") {
+                return; // invalid scheme; ignore
+            }
+            const device = new AdbDaemonWebSocketDevice(url.toString());
+            setWebSocketDeviceList((list) => {
+                if (list.some((d) => d.serial === device.serial)) return list;
+                return [device, ...list];
+            });
+            setSelected(device);
+        } catch {
+            // invalid URL; ignore
+        }
+    }, []);
+
     const addWebSocketDevice = useCallback(() => {
         const address = window.prompt("Enter the address of WebSockify server");
         if (!address) {

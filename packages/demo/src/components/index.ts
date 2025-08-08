@@ -10,6 +10,3 @@ export * from "./list-selection";
 export * from "./log-view";
 export * from "./resize-observer";
 export * from "./tabby-frame-manager";
-export { default as BugReportPanel } from "./actions/BugReportPanel";
-export { default as InstallApkPanel } from "./actions/InstallApkPanel";
-export { default as PowerPanel } from "./actions/PowerPanel";

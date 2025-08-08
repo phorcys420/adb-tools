@@ -55,15 +55,31 @@ const ROUTES = [
         icon: Icons.WifiSettings,
         name: "ADB over WiFi",
     },
-
+    {
+        url: "/install",
+        icon: Icons.Box,
+        name: "Install APK",
+    },
     {
         url: "/logcat",
         icon: Icons.BookSearch,
         name: "Logcat",
     },
-
-
-
+    {
+        url: "/power",
+        icon: Icons.Power,
+        name: "Power Menu",
+    },
+    {
+        url: "/chrome-devtools",
+        icon: Icons.WindowDevTools,
+        name: "Chrome Remote Debugging",
+    },
+    {
+        url: "/bug-report",
+        icon: Icons.Bug,
+        name: "Bug Report",
+    },
     {
         url: "/packet-log",
         icon: Icons.TextGrammarError,
@@ -108,6 +124,7 @@ function App({ Component, pageProps }: AppProps) {
 
     const [leftPanelVisible, setLeftPanelVisible] = useState(false);
     useEffect(() => {
+<<<<<<< HEAD
         let paramValue: boolean | undefined = undefined;
         try {
             const search = window.location.search;
@@ -132,6 +149,9 @@ function App({ Component, pageProps }: AppProps) {
         } else {
             setLeftPanelVisible(innerWidth > 650);
         }
+=======
+        setLeftPanelVisible(innerWidth > 650);
+>>>>>>> c0ddce3 (feat(demo): support ?ws= query param to override WebSocket server for current page load\n\n- Parse window.location.search for ws parameter\n- Validate scheme is ws: or wss:; ignore invalid values\n- No persistence beyond current page load\n\nCo-authored-by: phorcys420 <57866459+phorcys420@users.noreply.github.com>)
     }, []);
 
     const router = useRouter();
