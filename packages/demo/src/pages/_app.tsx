@@ -137,7 +137,30 @@ function App({ Component, pageProps }: AppProps) {
         setLeftPanelVisible((value) => !value);
     }, []);
     useEffect(() => {
-        setLeftPanelVisible(innerWidth > 650);
+        let paramValue: boolean | undefined = undefined;
+        try {
+            const search = window.location.search;
+            if (search) {
+                const sp = new URLSearchParams(search);
+                const raw = sp.get('showSidebar');
+                if (raw !== null) {
+                    const v = raw.trim().toLowerCase();
+                    if (v === 'true') {
+                        paramValue = true;
+                    } else if (v === 'false') {
+                        paramValue = false;
+                    }
+                    // invalid values are ignored
+                }
+            }
+        } catch {
+            // ignore parsing errors
+        }
+        if (paramValue !== undefined) {
+            setLeftPanelVisible(paramValue);
+        } else {
+            setLeftPanelVisible(innerWidth > 650);
+        }
     }, []);
 
     const router = useRouter();

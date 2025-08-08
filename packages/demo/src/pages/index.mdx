@@ -48,6 +48,10 @@ One USB device can only be accessed by one application at a time. Please make su
 
 Extra software is required to bridge the connection. See <ExternalLink href="https://github.com/yume-chan/ya-webadb/discussions/245#discussioncomment-384030">this discussion</ExternalLink>.
 
+## URL parameters
+
+- showSidebar=true|false: Controls visibility of the left sidebar. Values are case-insensitive. When absent or invalid, the app uses its existing default behavior.
+
 export default ({ children }) => (
     <div style={{ height: "100%", padding: "0 16px", overflow: "auto" }}>
         <Head>
