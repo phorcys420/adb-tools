@@ -24,6 +24,19 @@ npx next export
 
 This will create an `out` folder containing exported HTML files and all required resource files.
 
+## WebSocket server override
+
+You can override the WebSocket server for the current page load by adding a `ws` query parameter to the URL.
+
+Examples:
+- `?ws=wss://example.com/socket`
+- `?ws=ws://localhost:8080`
+
+Notes:
+- The value is URL-decoded and must use the `ws:` or `wss:` scheme.
+- Invalid values are ignored and the default behavior remains unchanged.
+- This does not persist beyond the current page load.
+
 ## Features
 
 -   File Management
@@ -38,19 +51,19 @@ This will create an `out` folder containing exported HTML files and all required
     -   Color themes
     -   Rich configuration
 -   Toggle ADB over WiFi
--   Install APK (now in Device Info)
+-   Install APK
 -   [Scrcpy](https://github.com/Genymobile/scrcpy) compatible client
     -   Screen mirroring
     -   Audio forwarding (Android >= 11)
     -   Recording
     -   Control device with mouse, touch and keyboard
--   Chrome Remote Debugging (removed)
+-   Chrome Remote Debugging that supporting
     -   Google Chrome (stable, beta, dev, canary)
     -   Microsoft Edge (stable, beta, dev, canary)
     -   Opera (stable, beta)
     -   Vivaldi
 -   Monitor and dump logcat messages
--   Power off and reboot to different modes (now in Device Info)
+-   Power off and reboot to different modes
 
 ## Used open-source projects
 

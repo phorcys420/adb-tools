@@ -41,6 +41,7 @@ const CredentialStore = new AdbWebCredentialStore();
 function ConnectCore(): JSX.Element | null {
     const [selected, setSelected] = useState<AdbDaemonDevice | undefined>();
     const [connecting, setConnecting] = useState(false);
+    const [wsParamSerial, setWsParamSerial] = useState<string | undefined>(undefined);
 
     const [usbSupported, setUsbSupported] = useState(true);
     const [usbDeviceList, setUsbDeviceList] = useState<AdbDaemonDevice[]>([]);
@@ -101,6 +102,33 @@ function ConnectCore(): JSX.Element | null {
         );
     }, []);
 
+    // Support overriding WebSocket server via ?ws= query parameter for current page load only
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+        const params = new URLSearchParams(window.location.search);
+        const wsParam = params.get("ws");
+        if (!wsParam) {
+            return;
+        }
+        try {
+            const decoded = decodeURIComponent(wsParam);
+            const url = new URL(decoded);
+            if (url.protocol !== "ws:" && url.protocol !== "wss:") {
+                return; // invalid scheme; ignore
+            }
+            const device = new AdbDaemonWebSocketDevice(url.toString());
+            setWebSocketDeviceList((list) => {
+                if (list.some((d) => d.serial === device.serial)) return list;
+                return [device, ...list];
+            });
+            setSelected(device);
+        } catch {
+            // invalid URL; ignore
+        }
+    }, []);
+
     const addWebSocketDevice = useCallback(() => {
         const address = window.prompt("Enter the address of WebSockify server");
         if (!address) {
@@ -115,6 +143,28 @@ function ConnectCore(): JSX.Element | null {
             );
             return copy;
         });
+    }, []);
+
+    // Query param: ws=ws://host:port or wss://host/path
+    // Parse once on load and, if valid, add a temporary WebSocket device and preselect it.
+    useEffect(() => {
+        try {
+            const search = typeof window !== 'undefined' ? window.location.search : '';
+            if (!search) { return; }
+            const sp = new URLSearchParams(search);
+            const raw = sp.get('ws');
+            if (raw === null) { return; }
+            const decoded = decodeURIComponent(raw.trim());
+            let parsed: URL;
+            try { parsed = new URL(decoded); } catch { return; }
+            if (parsed.protocol !== 'ws:' && parsed.protocol !== 'wss:') { return; }
+            const temp = new AdbDaemonWebSocketDevice(parsed.toString());
+            setWebSocketDeviceList((list) => [temp, ...list]);
+            setSelected(temp);
+            setWsParamSerial(temp.serial);
+        } catch {
+            // ignore invalid params
+        }
     }, []);
 
     const [tcpDeviceList, setTcpDeviceList] = useState<
@@ -262,6 +312,15 @@ function ConnectCore(): JSX.Element | null {
             GLOBAL_STATE.showErrorDialog(e);
         }
     }, []);
+
+    // Auto-connect when a valid ws param is provided
+    useEffect(() => {
+        if (!wsParamSerial) { return; }
+        if (selected?.serial === wsParamSerial && !GLOBAL_STATE.adb) {
+            // Fire and forget
+            void (async () => connect())();
+        }
+    }, [wsParamSerial, selected, connect]);
 
     const deviceList = useMemo(
         () =>

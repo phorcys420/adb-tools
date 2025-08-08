@@ -6,7 +6,6 @@ import {
     TooltipHost,
 } from "@fluentui/react";
 import { AdbFeature } from "@yume-chan/adb";
-import { BugReportPanel, InstallApkPanel, PowerPanel } from "../components";
 import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -100,26 +99,6 @@ const DeviceInfo: NextPage = () => {
                     </span>
                 ))}
             </span>
-
-            <Separator />
-
-            <Stack tokens={{ childrenGap: 16 }}>
-                <Stack>
-                    <InstallApkPanel />
-                </Stack>
-
-                <Separator />
-
-                <Stack>
-                    <PowerPanel />
-                </Stack>
-
-                <Separator />
-
-                <Stack>
-                    <BugReportPanel />
-                </Stack>
-            </Stack>
         </Stack>
     );
 };
