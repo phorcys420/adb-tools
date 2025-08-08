@@ -61,8 +61,14 @@ class AdbProxyTransportServerImpl implements AdbProxyTransportServer {
             socket.writable
         ).bePipedThroughFrom(new WrapConsumableStream());
         callback(
-            Comlink.transfer(socket.readable, [socket.readable]),
-            Comlink.transfer(writable, [writable]),
+            Comlink.transfer(
+                socket.readable as unknown as ReadableStream<Uint8Array>,
+                [socket.readable as unknown as ReadableStream<Uint8Array>]
+            ),
+            Comlink.transfer(
+                writable as unknown as WritableStream<Uint8Array>,
+                [writable as unknown as WritableStream<Uint8Array>]
+            ),
             Comlink.proxy(() => socket.close())
         );
     }
