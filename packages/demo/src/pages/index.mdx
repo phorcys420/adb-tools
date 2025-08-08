@@ -50,6 +50,7 @@ Extra software is required to bridge the connection. See <ExternalLink href="htt
 
 ## URL parameters
 
+- ws=ws://host:port or wss://host/path: Overrides the WebSocket server for this page load. The value is URL-decoded, and must start with ws:// or wss://. Invalid values are ignored and the default behavior remains in effect.
 - showSidebar=true|false: Controls visibility of the left sidebar. Values are case-insensitive. When absent or invalid, the app uses its existing default behavior.
 
 >>>>>>> c0ddce3 (feat(demo): support ?ws= query param to override WebSocket server for current page load\n\n- Parse window.location.search for ws parameter\n- Validate scheme is ws: or wss:; ignore invalid values\n- No persistence beyond current page load\n\nCo-authored-by: phorcys420 <57866459+phorcys420@users.noreply.github.com>)
