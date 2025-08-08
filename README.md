@@ -38,19 +38,19 @@ This will create an `out` folder containing exported HTML files and all required
     -   Color themes
     -   Rich configuration
 -   Toggle ADB over WiFi
--   Install APK
+-   Install APK (now in Device Info)
 -   [Scrcpy](https://github.com/Genymobile/scrcpy) compatible client
     -   Screen mirroring
     -   Audio forwarding (Android >= 11)
     -   Recording
     -   Control device with mouse, touch and keyboard
--   Chrome Remote Debugging that supporting
+-   Chrome Remote Debugging (removed)
     -   Google Chrome (stable, beta, dev, canary)
     -   Microsoft Edge (stable, beta, dev, canary)
     -   Opera (stable, beta)
     -   Vivaldi
 -   Monitor and dump logcat messages
--   Power off and reboot to different modes
+-   Power off and reboot to different modes (now in Device Info)
 
 ## Used open-source projects
 

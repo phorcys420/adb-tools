@@ -55,31 +55,15 @@ const ROUTES = [
         icon: Icons.WifiSettings,
         name: "ADB over WiFi",
     },
-    {
-        url: "/install",
-        icon: Icons.Box,
-        name: "Install APK",
-    },
+
     {
         url: "/logcat",
         icon: Icons.BookSearch,
         name: "Logcat",
     },
-    {
-        url: "/power",
-        icon: Icons.Power,
-        name: "Power Menu",
-    },
-    {
-        url: "/chrome-devtools",
-        icon: Icons.WindowDevTools,
-        name: "Chrome Remote Debugging",
-    },
-    {
-        url: "/bug-report",
-        icon: Icons.Bug,
-        name: "Bug Report",
-    },
+
+
+
     {
         url: "/packet-log",
         icon: Icons.TextGrammarError,

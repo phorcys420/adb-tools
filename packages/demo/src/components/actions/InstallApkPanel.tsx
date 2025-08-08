@@ -1,53 +1,29 @@
-import {
-    Checkbox,
-    PrimaryButton,
-    ProgressIndicator,
-    Stack,
-} from "@fluentui/react";
-import {
-    PackageManager,
-    PackageManagerInstallOptions,
-} from "@yume-chan/android-bin";
+import { Checkbox, PrimaryButton, ProgressIndicator, Stack } from "@fluentui/react";
+import { PackageManager, PackageManagerInstallOptions } from "@yume-chan/android-bin";
 import { WrapConsumableStream, WritableStream } from "@yume-chan/stream-extra";
 import { action, makeAutoObservable, observable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
-import { NextPage } from "next";
-import Head from "next/head";
-import { GLOBAL_STATE } from "../state";
-import {
-    ProgressStream,
-    RouteStackProps,
-    createFileStream,
-    pickFile,
-} from "../utils";
+import { GLOBAL_STATE } from "../../state/global";
+import { ProgressStream, createFileStream, pickFile } from "../../utils";
 
 enum Stage {
     Uploading,
-
     Installing,
-
     Completed,
 }
 
 interface Progress {
     filename: string;
-
     stage: Stage;
-
     uploadedSize: number;
-
     totalSize: number;
-
     value: number | undefined;
 }
 
 class InstallPageState {
     installing = false;
-
     progress: Progress | undefined = undefined;
-
     log: string = "";
-
     options: Partial<PackageManagerInstallOptions> = {
         bypassLowTargetSdkBlock: false,
     };
@@ -118,12 +94,7 @@ class InstallPageState {
             })
         );
 
-        const transferRate = (
-            file.size /
-            (elapsed / 1000) /
-            1024 /
-            1024
-        ).toFixed(2);
+        const transferRate = (file.size / (elapsed / 1000) / 1024 / 1024).toFixed(2);
         this.log += `Install finished in ${elapsed}ms at ${transferRate}MB/s`;
 
         runInAction(() => {
@@ -141,13 +112,9 @@ class InstallPageState {
 
 const state = new InstallPageState();
 
-const Install: NextPage = () => {
+const InstallApkPanel = observer(function InstallApkPanel() {
     return (
-        <Stack {...RouteStackProps}>
-            <Head>
-                <title>Install APK - Tango</title>
-            </Head>
-
+        <Stack tokens={{ childrenGap: 8 }}>
             <Stack horizontal>
                 <Checkbox
                     label="--bypass-low-target-sdk-block (Android 14)"
@@ -164,11 +131,7 @@ const Install: NextPage = () => {
             </Stack>
 
             <Stack horizontal>
-                <PrimaryButton
-                    disabled={!GLOBAL_STATE.adb || state.installing}
-                    text="Browse APK"
-                    onClick={state.install}
-                />
+                <PrimaryButton disabled={!GLOBAL_STATE.adb || state.installing} text="Browse APK" onClick={state.install} />
             </Stack>
 
             {state.progress && (
@@ -183,6 +146,6 @@ const Install: NextPage = () => {
             {state.log && <pre>{state.log}</pre>}
         </Stack>
     );
-};
+});
 
-export default observer(Install);
+export default InstallApkPanel;
