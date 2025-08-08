@@ -41,11 +41,6 @@ const ROUTES = [
         name: "Screen Capture",
     },
     {
-        url: "/shell",
-        icon: Icons.WindowConsole,
-        name: "Interactive Shell",
-    },
-    {
         url: "/scrcpy",
         icon: Icons.PhoneLaptop,
         name: "Scrcpy",
@@ -124,7 +119,6 @@ function App({ Component, pageProps }: AppProps) {
 
     const [leftPanelVisible, setLeftPanelVisible] = useState(false);
     useEffect(() => {
-<<<<<<< HEAD
         let paramValue: boolean | undefined = undefined;
         try {
             const search = window.location.search;
@@ -149,9 +143,6 @@ function App({ Component, pageProps }: AppProps) {
         } else {
             setLeftPanelVisible(innerWidth > 650);
         }
-=======
-        setLeftPanelVisible(innerWidth > 650);
->>>>>>> c0ddce3 (feat(demo): support ?ws= query param to override WebSocket server for current page load\n\n- Parse window.location.search for ws parameter\n- Validate scheme is ws: or wss:; ignore invalid values\n- No persistence beyond current page load\n\nCo-authored-by: phorcys420 <57866459+phorcys420@users.noreply.github.com>)
     }, []);
 
     const router = useRouter();

@@ -35,7 +35,6 @@
         "@yume-chan/stream-extra": "^0.0.21",
         "@yume-chan/stream-saver": "^2.0.6",
         "@yume-chan/struct": "^0.0.21",
-        "@yume-chan/tabby-launcher": "workspace:^1.0.197-nightly.1",
         "@yume-chan/undici-browser": "5.22.1-mod.7",
         "comlink": "^4.4.1",
         "fflate": "^0.8.0",
