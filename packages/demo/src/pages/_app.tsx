@@ -1,9 +1,7 @@
 import {
     IComponentAsProps,
     INavButtonProps,
-    IconButton,
     Nav,
-    PrimaryButton,
     Stack,
     StackItem,
 } from "@fluentui/react";
@@ -13,8 +11,8 @@ import getConfig from "next/config";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { Connect, ErrorDialogProvider, ExternalLink } from "../components";
+import { useEffect, useState } from "react";
+import { Connect, ErrorDialogProvider } from "../components";
 import "../styles/globals.css";
 import { Icons } from "../utils";
 import { register as registerIcons } from "../utils/icons";
@@ -106,16 +104,8 @@ function NavLink({
 }
 
 const useClasses = makeStyles({
-    titleContainer: {
-        ...shorthands.borderBottom("1px", "solid", "rgb(243, 242, 241)"),
-    },
     hidden: {
         display: "none",
-    },
-    title: {
-        ...shorthands.padding("4px", "0"),
-        fontSize: "20px",
-        textAlign: "center",
     },
     leftColumn: {
         width: "270px",
@@ -133,9 +123,6 @@ function App({ Component, pageProps }: AppProps) {
     const classes = useClasses();
 
     const [leftPanelVisible, setLeftPanelVisible] = useState(false);
-    const toggleLeftPanel = useCallback(() => {
-        setLeftPanelVisible((value) => !value);
-    }, []);
     useEffect(() => {
         setLeftPanelVisible(innerWidth > 650);
     }, []);
@@ -153,35 +140,6 @@ function App({ Component, pageProps }: AppProps) {
             </Head>
 
             <Stack verticalFill>
-                <Stack
-                    className={classes.titleContainer}
-                    horizontal
-                    verticalAlign="center"
-                >
-                    <IconButton
-                        checked={leftPanelVisible}
-                        title="Toggle Menu"
-                        iconProps={{ iconName: Icons.Navigation }}
-                        onClick={toggleLeftPanel}
-                    />
-
-                    <StackItem grow>
-                        <div className={classes.title}>Tango</div>
-                    </StackItem>
-
-                    <ExternalLink href="https://app.tangoapp.dev">
-                        <PrimaryButton>Try our new app</PrimaryButton>
-                    </ExternalLink>
-
-                    <IconButton
-                        iconProps={{ iconName: "PersonFeedback" }}
-                        title="Feedback"
-                        as="a"
-                        href="https://github.com/yume-chan/ya-webadb/issues/new"
-                        target="_blank"
-                    />
-                </Stack>
-
                 <Stack
                     grow
                     horizontal
