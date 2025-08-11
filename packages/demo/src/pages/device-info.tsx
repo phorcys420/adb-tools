@@ -11,6 +11,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { GLOBAL_STATE } from "../state";
 import { Icons, RouteStackProps } from "../utils";
+import BugReportPanel from "../components/actions/BugReportPanel";
+import InstallApkPanel from "../components/actions/InstallApkPanel";
+import PowerPanel from "../components/actions/PowerPanel";
 
 const KNOWN_FEATURES: Record<string, string> = {
     [AdbFeature.ShellV2]: `"shell" command now supports separating child process's stdout and stderr, and returning exit code`,
@@ -99,6 +102,13 @@ const DeviceInfo: NextPage = () => {
                     </span>
                 ))}
             </span>
+
+            <Separator />
+            <BugReportPanel />
+            <Separator />
+            <InstallApkPanel />
+            <Separator />
+            <PowerPanel />
         </Stack>
     );
 };
