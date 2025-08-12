@@ -81,7 +81,7 @@ const BugReportPanel = observer(function BugReportPanel() {
     return (
         <Stack tokens={{ childrenGap: 8 }}>
             <MessageBar messageBarType={MessageBarType.info} delayedRender={false}>
-                This is the `bugreport`/`bugreportz` tool in Android
+                This is the <code>bugreport</code>/<code>bugreportz</code> tool in Android
             </MessageBar>
 
             <Stack horizontal wrap verticalAlign="center" tokens={{ childrenGap: 8 }}>

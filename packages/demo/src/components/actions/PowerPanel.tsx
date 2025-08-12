@@ -23,15 +23,19 @@ const PowerPanel = observer(function PowerPanel() {
                 <DefaultButton text="Sideload" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.sideload()} />
             </Stack>
 
-            <Stack horizontal wrap tokens={{ childrenGap: 8 }}>
-                <DefaultButton text="Qualcomm EDL" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.qualcommEdlMode()} />
-                <TooltipHost content={<span>Only works on some Qualcomm devices.</span>}>
-                    <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
-                </TooltipHost>
-                <DefaultButton text="Samsung Odin" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.samsungOdin()} />
-                <TooltipHost content={<span>Only works on Samsung devices.</span>}>
-                    <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
-                </TooltipHost>
+            <Stack tokens={{ childrenGap: 8 }}>
+                <Stack horizontal tokens={{ childrenGap: 8 }}>
+                    <DefaultButton text="Qualcomm EDL" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.qualcommEdlMode()} />
+                    <TooltipHost content={<span>Only works on some Qualcomm devices.</span>}>
+                        <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
+                    </TooltipHost>
+                </Stack>
+                <Stack horizontal tokens={{ childrenGap: 8 }}>
+                    <DefaultButton text="Samsung Odin" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.samsungOdin()} />
+                    <TooltipHost content={<span>Only works on Samsung devices.</span>}>
+                        <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
+                    </TooltipHost>
+                </Stack>
             </Stack>
         </Stack>
     );

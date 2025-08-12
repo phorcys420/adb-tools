@@ -33,7 +33,14 @@ module.exports = pipe(
         experimental: {
             // Workaround https://github.com/vercel/next.js/issues/33914
             esmExternals: "loose",
+            // Allow transpiling and resolving workspace packages outside this dir
+            externalDir: true,
         },
+        // Transpile linked workspace packages used by the app
+        transpilePackages: [
+            "@yume-chan/adb-daemon-direct-sockets",
+            "@yume-chan/adb-daemon-ws",
+        ],
         publicRuntimeConfig: {
             basePath,
         },

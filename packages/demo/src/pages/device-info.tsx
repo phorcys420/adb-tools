@@ -48,11 +48,11 @@ const DeviceInfo: NextPage = () => {
                 <title>Device Info - Tango</title>
             </Head>
 
-            <span>Product Name (ro.product.name): {GLOBAL_STATE.adb?.banner.product}</span>
+            <span>Product Name (<code>ro.product.name</code>): {GLOBAL_STATE.adb?.banner.product}</span>
 
-            <span>Model Name (ro.product.model): {GLOBAL_STATE.adb?.banner.model}</span>
+            <span>Model Name (<code>ro.product.model</code>): {GLOBAL_STATE.adb?.banner.model}</span>
 
-            <span>Device Name (ro.product.device): {GLOBAL_STATE.adb?.banner.device}</span>
+            <span>Device Name (<code>ro.product.device</code>): {GLOBAL_STATE.adb?.banner.device}</span>
 
             <MessageBar delayedRender={false}>
                 <span>
