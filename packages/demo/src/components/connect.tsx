@@ -103,14 +103,25 @@ function ConnectCore(): JSX.Element | null {
     }, []);
 
     // Support overriding WebSocket server via ?ws= query parameter for current page load only
-    // This handler accepts any string and adds it directly.
+    // Normalize relative/schemeless values to absolute ws(s) URLs for reliability across hosts.
     useEffect(() => {
         if (typeof window === "undefined") return;
         const sp = new URLSearchParams(window.location.search);
         const raw = sp.get("ws");
         if (raw === null) return;
-        const decoded = decodeURIComponent(raw.trim());
-        const device = new AdbDaemonWebSocketDevice(decoded);
+
+        let url = decodeURIComponent(raw.trim());
+        const isAbsolute = /^wss?:\/\//i.test(url);
+        if (!isAbsolute) {
+            const scheme = location.protocol === "https:" ? "wss" : "ws";
+            if (url.startsWith("/")) {
+                url = `${scheme}://${location.host}${url}`;
+            } else {
+                url = `${scheme}://${url}`;
+            }
+        }
+
+        const device = new AdbDaemonWebSocketDevice(url);
         setWebSocketDeviceList((list) => [device, ...list]);
         setSelected(device);
         setWsParamSerial(device.serial);
