@@ -65,12 +65,7 @@ const ROUTES = [
         icon: Icons.Power,
         name: "Power Menu",
     },
-    {
-        url: "/chrome-devtools",
-        icon: Icons.WindowDevTools,
-        name: "Chrome Remote Debugging",
-    },
-    {
+        {
         url: "/bug-report",
         icon: Icons.Bug,
         name: "Bug Report",

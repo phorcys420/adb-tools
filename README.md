@@ -57,11 +57,6 @@ Notes:
     -   Audio forwarding (Android >= 11)
     -   Recording
     -   Control device with mouse, touch and keyboard
--   Chrome Remote Debugging that supporting
-    -   Google Chrome (stable, beta, dev, canary)
-    -   Microsoft Edge (stable, beta, dev, canary)
-    -   Opera (stable, beta)
-    -   Vivaldi
 -   Monitor and dump logcat messages
 -   Power off and reboot to different modes
 
