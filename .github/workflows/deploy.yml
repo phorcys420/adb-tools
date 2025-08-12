@@ -6,6 +6,8 @@ permissions:
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: ["**"]
 
 jobs:
   build:
@@ -33,13 +35,14 @@ jobs:
       - run: touch packages/demo/out/.nojekyll
 
       - name: Upload static site artifact
-        if: ${{ success() }}
+        if: ${{ success() && github.event_name == 'push' }}
         uses: actions/upload-artifact@v4
         with:
           name: adb-tools-static-site
           path: packages/demo/out
 
       - name: Deploy
+        if: ${{ github.event_name == 'push' }}
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
