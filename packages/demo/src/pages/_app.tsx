@@ -56,13 +56,6 @@ const ROUTES = [
         icon: Icons.BookSearch,
         name: "Logcat",
     },
-
-    {
-        url: "/chrome-devtools",
-        icon: Icons.WindowDevTools,
-        name: "Chrome Remote Debugging",
-    },
-
     {
         url: "/packet-log",
         icon: Icons.TextGrammarError,
@@ -79,8 +72,10 @@ function NavLink({
         return null;
     }
 
+    // For static export, link to .html files (except root)
+    const href = link.url === "/" ? "/" : `${link.url}.html`;
     return (
-        <Link href={link.url} legacyBehavior passHref>
+        <Link href={href} legacyBehavior passHref>
             <DefaultRender {...props} />
         </Link>
     );
