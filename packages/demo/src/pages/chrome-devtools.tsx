@@ -300,7 +300,7 @@ const ChromeDevToolsPage: NextPage = observer(function ChromeDevTools() {
     const handleInspectClick = useCallback((socket: string, page: Page) => {
         const { script, params } = getPopupParams(page);
         const childWindow = window.open(
-            `${basePath}/chrome-devtools-frame?script=${script}&${params}`,
+            `${basePath}/chrome-devtools-frame.html?script=${script}&${params}`,
             "_blank",
             "popup"
         )!;

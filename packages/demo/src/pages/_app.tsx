@@ -91,8 +91,10 @@ function NavLink({
         return null;
     }
 
+    // For static export, link to .html files (except root)
+    const href = link.url === "/" ? "/" : `${link.url}.html`;
     return (
-        <Link href={link.url} legacyBehavior passHref>
+        <Link href={href} legacyBehavior passHref>
             <DefaultRender {...props} />
         </Link>
     );
