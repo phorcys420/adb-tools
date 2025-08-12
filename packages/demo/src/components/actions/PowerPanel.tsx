@@ -5,54 +5,34 @@ import { Icons } from "../../utils";
 
 const PowerPanel = observer(function PowerPanel() {
     return (
-        <Stack tokens={{ childrenGap: 20 }}>
-            <div>
+        <Stack tokens={{ childrenGap: 8 }}>
+            <Stack horizontal wrap tokens={{ childrenGap: 8 }}>
                 <DefaultButton text="Reboot" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.reboot()} />
-            </div>
-
-            <div>
                 <DefaultButton text="Power Off" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.powerOff()} />
-            </div>
-
-            <div>
                 <DefaultButton text="Press Power Button" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.powerButton()} />
-            </div>
+            </Stack>
 
-            <div>
-                <MessageBar messageBarType={MessageBarType.severeWarning} delayedRender={false}>
-                    Danger Zone Below
-                </MessageBar>
-            </div>
+            <MessageBar messageBarType={MessageBarType.severeWarning} delayedRender={false}>
+                Danger Zone Below
+            </MessageBar>
 
-            <div>
-                <DefaultButton text="Reboot to Bootloader" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.bootloader()} />
-            </div>
+            <Stack horizontal wrap tokens={{ childrenGap: 8 }}>
+                <DefaultButton text="Bootloader" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.bootloader()} />
+                <DefaultButton text="Fastboot" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.fastboot()} />
+                <DefaultButton text="Recovery" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.recovery()} />
+                <DefaultButton text="Sideload" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.sideload()} />
+            </Stack>
 
-            <div>
-                <DefaultButton text="Reboot to Fastboot" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.fastboot()} />
-            </div>
-
-            <div>
-                <DefaultButton text="Reboot to Recovery" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.recovery()} />
-            </div>
-
-            <div>
-                <DefaultButton text="Reboot to Sideload" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.sideload()} />
-            </div>
-
-            <div>
-                <DefaultButton text="Reboot to Qualcomm EDL Mode" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.qualcommEdlMode()} />
+            <Stack horizontal wrap tokens={{ childrenGap: 8 }}>
+                <DefaultButton text="Qualcomm EDL" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.qualcommEdlMode()} />
                 <TooltipHost content={<span>Only works on some Qualcomm devices.</span>}>
                     <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
                 </TooltipHost>
-            </div>
-
-            <div>
-                <DefaultButton text="Reboot to Samsung Odin Download Mode" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.samsungOdin()} />
+                <DefaultButton text="Samsung Odin" disabled={!GLOBAL_STATE.adb} onClick={() => GLOBAL_STATE.adb!.power.samsungOdin()} />
                 <TooltipHost content={<span>Only works on Samsung devices.</span>}>
                     <Icon style={{ verticalAlign: "middle", marginLeft: 4, fontSize: 18 }} iconName={Icons.Info} />
                 </TooltipHost>
-            </div>
+            </Stack>
         </Stack>
     );
 });
