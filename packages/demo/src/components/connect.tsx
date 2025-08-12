@@ -103,30 +103,17 @@ function ConnectCore(): JSX.Element | null {
     }, []);
 
     // Support overriding WebSocket server via ?ws= query parameter for current page load only
+    // This handler accepts any string and adds it directly.
     useEffect(() => {
-        if (typeof window === "undefined") {
-            return;
-        }
-        const params = new URLSearchParams(window.location.search);
-        const wsParam = params.get("ws");
-        if (!wsParam) {
-            return;
-        }
-        try {
-            const decoded = decodeURIComponent(wsParam);
-            const url = new URL(decoded);
-            if (url.protocol !== "ws:" && url.protocol !== "wss:") {
-                return; // invalid scheme; ignore
-            }
-            const device = new AdbDaemonWebSocketDevice(url.toString());
-            setWebSocketDeviceList((list) => {
-                if (list.some((d) => d.serial === device.serial)) return list;
-                return [device, ...list];
-            });
-            setSelected(device);
-        } catch {
-            // invalid URL; ignore
-        }
+        if (typeof window === "undefined") return;
+        const sp = new URLSearchParams(window.location.search);
+        const raw = sp.get("ws");
+        if (raw === null) return;
+        const decoded = decodeURIComponent(raw.trim());
+        const device = new AdbDaemonWebSocketDevice(decoded);
+        setWebSocketDeviceList((list) => [device, ...list]);
+        setSelected(device);
+        setWsParamSerial(device.serial);
     }, []);
 
     const addWebSocketDevice = useCallback(() => {
@@ -145,27 +132,7 @@ function ConnectCore(): JSX.Element | null {
         });
     }, []);
 
-    // Query param: ws=ws://host:port or wss://host/path
-    // Parse once on load and, if valid, add a temporary WebSocket device and preselect it.
-    useEffect(() => {
-        try {
-            const search = typeof window !== 'undefined' ? window.location.search : '';
-            if (!search) { return; }
-            const sp = new URLSearchParams(search);
-            const raw = sp.get('ws');
-            if (raw === null) { return; }
-            const decoded = decodeURIComponent(raw.trim());
-            let parsed: URL;
-            try { parsed = new URL(decoded); } catch { return; }
-            if (parsed.protocol !== 'ws:' && parsed.protocol !== 'wss:') { return; }
-            const temp = new AdbDaemonWebSocketDevice(parsed.toString());
-            setWebSocketDeviceList((list) => [temp, ...list]);
-            setSelected(temp);
-            setWsParamSerial(temp.serial);
-        } catch {
-            // ignore invalid params
-        }
-    }, []);
+
 
     const [tcpDeviceList, setTcpDeviceList] = useState<
         AdbDaemonDirectSocketsDevice[]
