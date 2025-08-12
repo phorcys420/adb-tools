@@ -48,26 +48,11 @@ const DeviceInfo: NextPage = () => {
                 <title>Device Info - Tango</title>
             </Head>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.name</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Product Name: {GLOBAL_STATE.adb?.banner.product}</span>
-            <Separator />
+            <span>Product Name (ro.product.name): {GLOBAL_STATE.adb?.banner.product}</span>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.model</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Model Name: {GLOBAL_STATE.adb?.banner.model}</span>
-            <Separator />
+            <span>Model Name (ro.product.model): {GLOBAL_STATE.adb?.banner.model}</span>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.device</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Device Name: {GLOBAL_STATE.adb?.banner.device}</span>
-            <Separator />
+            <span>Device Name (ro.product.device): {GLOBAL_STATE.adb?.banner.device}</span>
 
             <MessageBar delayedRender={false}>
                 <span>
