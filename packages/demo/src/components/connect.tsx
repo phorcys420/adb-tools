@@ -115,9 +115,6 @@ function ConnectCore(): JSX.Element | null {
         try {
             const decoded = decodeURIComponent(wsParam);
             const url = new URL(decoded);
-            if (url.protocol !== "ws:" && url.protocol !== "wss:") {
-                return; // invalid scheme; ignore
-            }
             const device = new AdbDaemonWebSocketDevice(url.toString());
             setWebSocketDeviceList((list) => {
                 if (list.some((d) => d.serial === device.serial)) return list;
