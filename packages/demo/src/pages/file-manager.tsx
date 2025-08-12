@@ -586,7 +586,12 @@ class FileManagerState {
     }
 
     pushPathQuery = (path: string) => {
-        Router.push({ query: { ...Router.query, path } });
+        if (typeof window === "undefined") return;
+        const url = new URL(window.location.href);
+        url.searchParams.set("path", path);
+        // Preserve pathname (including .html) and all other params
+        const next = url.pathname + (url.search ? url.search : "");
+        Router.replace(next);
     };
 
     changeDirectory(path: string) {
@@ -785,7 +790,12 @@ const FileManager: NextPage = (): JSX.Element | null => {
     useEffect(() => {
         let pathQuery = router.query.path;
         if (!pathQuery) {
-            router.replace({ query: { ...router.query, path: state.path } });
+            if (typeof window !== "undefined") {
+                const url = new URL(window.location.href);
+                url.searchParams.set("path", state.path);
+                const next = url.pathname + (url.search ? url.search : "");
+                router.replace(next);
+            }
             return;
         }
 
