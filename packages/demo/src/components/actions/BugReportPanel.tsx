@@ -81,47 +81,36 @@ const BugReportPanel = observer(function BugReportPanel() {
     return (
         <Stack tokens={{ childrenGap: 8 }}>
             <MessageBar messageBarType={MessageBarType.info} delayedRender={false}>
-                This is the `bugreport`/`bugreportz` tool in Android
+                This is the <code>bugreport</code>/<code>bugreportz</code> tool in Android
             </MessageBar>
 
-            <StackItem>
+            <Stack horizontal wrap verticalAlign="center" tokens={{ childrenGap: 8 }}>
                 <PrimaryButton disabled={!state.bugReport} text="Generate BugReport" onClick={state.generateBugReport} />
-            </StackItem>
-
-            <StackItem>
                 <PrimaryButton
                     disabled={!state.bugReport?.supportsBugReportZStream}
                     text="Generate Zipped BugReport (Streaming)"
                     onClick={state.generateBugReportZStream}
                 />
-            </StackItem>
-
-            <StackItem>
-                <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 8 }}>
+                <PrimaryButton
+                    disabled={!state.bugReport?.supportsBugReportZ || state.bugReportZInProgress}
+                    text="Generate Zipped BugReport"
+                    onClick={state.generateBugReportZ}
+                />
+                {state.bugReportZInProgress && (
                     <StackItem>
-                        <PrimaryButton
-                            disabled={!state.bugReport?.supportsBugReportZ || state.bugReportZInProgress}
-                            text="Generate Zipped BugReport"
-                            onClick={state.generateBugReportZ}
-                        />
+                        {state.bugReportZTotalSize ? (
+                            <span>
+                                Progress: {state.bugReportZProgress} / {state.bugReportZTotalSize}
+                            </span>
+                        ) : (
+                            <span>
+                                Generating... Please wait
+                                {!state.bugReport!.supportsBugReportZProgress && " (this device does not support progress)"}
+                            </span>
+                        )}
                     </StackItem>
-
-                    {state.bugReportZInProgress && (
-                        <StackItem>
-                            {state.bugReportZTotalSize ? (
-                                <span>
-                                    Progress: {state.bugReportZProgress} / {state.bugReportZTotalSize}
-                                </span>
-                            ) : (
-                                <span>
-                                    Generating... Please wait
-                                    {!state.bugReport!.supportsBugReportZProgress && " (this device does not support progress)"}
-                                </span>
-                            )}
-                        </StackItem>
-                    )}
-                </Stack>
-            </StackItem>
+                )}
+            </Stack>
         </Stack>
     );
 });

@@ -11,6 +11,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { GLOBAL_STATE } from "../state";
 import { Icons, RouteStackProps } from "../utils";
+import BugReportPanel from "../components/actions/BugReportPanel";
+import InstallApkPanel from "../components/actions/InstallApkPanel";
+import PowerPanel from "../components/actions/PowerPanel";
 
 const KNOWN_FEATURES: Record<string, string> = {
     [AdbFeature.ShellV2]: `"shell" command now supports separating child process's stdout and stderr, and returning exit code`,
@@ -45,26 +48,11 @@ const DeviceInfo: NextPage = () => {
                 <title>Device Info - Tango</title>
             </Head>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.name</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Product Name: {GLOBAL_STATE.adb?.banner.product}</span>
-            <Separator />
+            <span>Product Name (<code>ro.product.name</code>): {GLOBAL_STATE.adb?.banner.product}</span>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.model</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Model Name: {GLOBAL_STATE.adb?.banner.model}</span>
-            <Separator />
+            <span>Model Name (<code>ro.product.model</code>): {GLOBAL_STATE.adb?.banner.model}</span>
 
-            <MessageBar delayedRender={false}>
-                <code>ro.product.device</code>
-                <span> field in Android Build Props</span>
-            </MessageBar>
-            <span>Device Name: {GLOBAL_STATE.adb?.banner.device}</span>
-            <Separator />
+            <span>Device Name (<code>ro.product.device</code>): {GLOBAL_STATE.adb?.banner.device}</span>
 
             <MessageBar delayedRender={false}>
                 <span>
@@ -99,6 +87,13 @@ const DeviceInfo: NextPage = () => {
                     </span>
                 ))}
             </span>
+
+            <Separator />
+            <BugReportPanel />
+            <Separator />
+            <InstallApkPanel />
+            <Separator />
+            <PowerPanel />
         </Stack>
     );
 };
